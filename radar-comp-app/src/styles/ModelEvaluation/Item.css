@@ -1,0 +1,10 @@
+.rca-item-slider {
+    width: 200px;
+}
+
+.rca-item-li {
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+    margin: 10px;
+}

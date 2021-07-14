@@ -3,6 +3,8 @@ import Banner from './Banner';
 import Home from './Home';
 import Evaluation from './ModelEvaluation/Evaluation';
 import Footer from './Footer';
+import Login from './Login/Login';
+import Sign from './Login/Sign';
 import { Provider } from 'react-redux'
 import store from '../store/configureStore'
 import {
@@ -21,10 +23,16 @@ function App() {
             <div className="container">
               <Switch>
                 <Route path="/eval">
-                  <Evaluation/>
+                  <Evaluation />
+                </Route>
+                <Route path="/home">
+                  <Home />
+                </Route>
+                <Route path="/sign">
+                  <Sign />
                 </Route>
                 <Route path="/">
-                  <Home />
+                  <Login />
                 </Route>
               </Switch>
             </div>

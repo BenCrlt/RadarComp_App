@@ -1,0 +1,18 @@
+.sign {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    margin-top: 50px;
+}
+
+.sign-input {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 300px;
+}
+
+.sign-btn-creation {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

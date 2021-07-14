@@ -6,13 +6,18 @@ function Banner() {
         <nav className="navbar navbar-dark bg-dark">
             <ul>
                 <li>
-                    <Link to="/">
+                    <Link to="/home">
                         Home
                     </Link>
                 </li>
                 <li>
                     <Link to="/eval">
                         Evaluation
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/">
+                        Deconnexion
                     </Link>
                 </li>
             </ul>

@@ -1,8 +1,7 @@
 import '../styles/Home.css'
-import Evaluation from './ModelEvaluation/Evaluation.js';
 
 function Home() {
-    return <div><Evaluation/></div>
+    return <div>Welcome Home !  </div>
 }
 
 export default Home;

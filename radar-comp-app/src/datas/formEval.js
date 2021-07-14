@@ -18,15 +18,15 @@ export const listEval = [
         title: "Le compte de résultat",
         items: [
             {
-                id: 0,
+                id: 2,
                 title: "Je sais ce qu'est un compte de résultat"
             },
             {
-                id: 1,
+                id: 3,
                 title: "Je sais construire un compte de résultat"
             },
             {
-                id: 3,
+                id: 4,
                 title: "Je sais lire et analyser un compte de résultat"
             }
         ]
@@ -36,11 +36,11 @@ export const listEval = [
         title: "Les liens entre bilan et compte de résultat",
         items: [
             {
-                id: 0,
+                id: 5,
                 title: "Je connais les liens, les flux entre le bilan et le compte de résultat"
             },
             {
-                id: 1,
+                id: 6,
                 title: "Je connais les mécanismes de l'enregistrement en partie double"
             }
         ]

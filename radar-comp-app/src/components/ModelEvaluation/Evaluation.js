@@ -1,29 +1,42 @@
 import '../../styles/ModelEvaluation/Evaluation.css'
-import {listEval} from '../../datas/formEval.js'
+import { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import axios from 'axios';
 import Skill from './Skill';
 
-function Evaluation({user}) {
+function Evaluation({user, listValueItems}) {
+    const [listSkills, setListSkills] = useState([]);
+    useEffect(() => {
+        axios.get('http://localhost:3000/api/list_skills')
+        .then(res => {
+            setListSkills(res.data);
+        });
+    }, [])
     const rangeScale = 5;
+    const date = new Date().toLocaleDateString();
     return (
         <div className="rca-eval">
-            <h1 className="border-bottom">Evaluation {getDateString()}</h1>
+            <h1 className="border-bottom">Evaluation {date}</h1>
                 <div className="rca-eval-skill-list">
-                    {listEval.map((skill) => (
-                        <Skill skill={skill} key={skill.id} rangeScale={rangeScale}/>
+                    {listSkills.map((skill) => (
+                        <Skill skill={skill} key={skill.skill_id} rangeScale={rangeScale}/>
                     ))}
                 </div>
                 <div className="rca-eval-skill-button">
-                    <button type="button" className="btn btn-primary btn-lg">Envoyer</button>   
+                    <button type="button" className="btn btn-primary btn-lg" onClick={() => SendEvaluation(listValueItems)}>Envoyer</button>
                 </div>
         </div>
     )
 }
 
-function getDateString() {
-    const date = new Date(),
-        day = date.getDay() >= 10 ? date.getDay() : "0" + date.getDay(),
-        month = date.getMonth() >= 10 ? (date.getMonth() + 1) : "0" + (date.getMonth()+1),
-        year = date.getFullYear();
-    return day + "/" + month + "/" + year;
+function SendEvaluation(listItems) {
+    console.log(listItems);
 }
-export default Evaluation;
+
+const mapStateToProps = (state) => {
+    return {
+        listValueItems: state.listValueItems
+    }
+}
+
+export default connect(mapStateToProps)(Evaluation);

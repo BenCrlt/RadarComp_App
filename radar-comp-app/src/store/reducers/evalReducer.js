@@ -4,7 +4,7 @@ function addItemValue(state = initialState, action) {
     let nextState;
     switch (action.type) {
         case 'UPDATE_ITEM_VALUE':
-            const indexValue = state.listValueItems.findIndex(item => item.id === action.value.id);
+            const indexValue = state.listValueItems.findIndex(item => item.item_id === action.value.item_id);
             if (indexValue !== -1) {
                 nextState = {
                     ...state,

@@ -19,16 +19,10 @@ function Item({item, rangeScale, listValueItems, dispatch}) {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        listValueItems: state.listValueItems
-    }
-  }
-
 const mapDispatchToProps = (dispatch) => {
 return {
     dispatch: (action) => { dispatch(action) }
 }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Item);
+export default connect(mapDispatchToProps)(Item);

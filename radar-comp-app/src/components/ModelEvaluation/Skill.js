@@ -9,7 +9,6 @@ function Skill({skill, rangeScale}) {
         axios.get('http://localhost:3000/api/list_items/' + skill.skill_id)
         .then(res => {
             setListItems(res.data);
-            console.log(res.data);
         });
     }, [])
     return (

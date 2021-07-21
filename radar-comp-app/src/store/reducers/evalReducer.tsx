@@ -1,6 +1,17 @@
-const initialState = {listValueItems: []}
+type ListItemsType = {
+    item_id: number,
+    item_skill_id: number,
+    item_title: string,
+    value: number
+}
 
-function addItemValue(state = initialState, action) {
+type StateType = {
+    listValueItems: ListItemsType[]
+}
+
+const initialState : StateType = {listValueItems: []}
+
+function addItemValue(state = initialState, action : any) {
     let nextState;
     switch (action.type) {
         case 'UPDATE_ITEM_VALUE':

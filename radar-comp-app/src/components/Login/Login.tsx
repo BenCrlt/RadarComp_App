@@ -8,7 +8,7 @@ function Login() {
     const [password, setPassword] = useState("");
     const history = useHistory();
 
-    function Connect(email, password) {
+    function Connect(email: string, password: string) {
         axios.get('http://localhost:3000/api/user/load/' + email + "&" + password)
             .then(function (res) {
                 console.log(res.data);

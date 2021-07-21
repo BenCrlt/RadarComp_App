@@ -8,11 +8,6 @@ interface ItemProps extends PropsFromRedux {
     item: ItemType,
     rangeScale: number,
 }
-type ItemType = {
-    item_id: number,
-    item_skill_id: number,
-    item_title: string
-}
 
 function Item({item, rangeScale, dispatch} : ItemProps) {
     const [inputValue, setInputValue] = useState(0);

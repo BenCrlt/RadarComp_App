@@ -1,14 +1,3 @@
-type ListItemsType = {
-    item_id: number,
-    item_skill_id: number,
-    item_title: string,
-    value: number
-}
-
-type StateType = {
-    listValueItems: ListItemsType[]
-}
-
 const initialState : StateType = {listValueItems: []}
 
 function addItemValue(state = initialState, action : any) {

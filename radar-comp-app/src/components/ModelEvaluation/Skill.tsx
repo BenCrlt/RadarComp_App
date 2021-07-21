@@ -3,20 +3,9 @@ import Item from './Item'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-type Skill = {
-    skill_id : number,
-    skill_title : string
-}
-
 type SkillProps = {
-    skill: Skill,
+    skill: SkillType,
     rangeScale: number
-}
-
-type ItemType = {
-    item_id: number,
-    item_skill_id: number,
-    item_title: string
 }
 
 function Skill({skill, rangeScale} : SkillProps) {

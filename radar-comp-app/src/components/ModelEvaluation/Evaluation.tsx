@@ -4,21 +4,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import axios from 'axios';
 import Skill from './Skill';
 
-type StateType = {
-    listValueItems: ListItemsType[]
-}
-type ListItemsType = {
-    item_id: number,
-    item_skill_id: number,
-    item_title: string,
-    value: number
-}
 type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type SkillType = {
-    skill_id : number,
-    skill_title : string
-}
 
 function Evaluation({listValueItems} : PropsFromRedux) {
     const [listSkills, setListSkills] = useState<SkillType[]>([]);

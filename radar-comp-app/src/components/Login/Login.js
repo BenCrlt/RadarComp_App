@@ -1,10 +1,23 @@
 import '../../styles/Login/Login.css'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useState } from 'react'
+import axios from 'axios'
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const history = useHistory();
+
+    function Connect(email, password) {
+        axios.get('http://localhost:3000/api/user/load/' + email + "&" + password)
+            .then(function (res) {
+                console.log(res.data);
+                if (res.data.length) {
+                    history.push("/home");
+                }
+            });
+    }
+
     return (
         <div className="login">
             <h1>CONNEXION</h1>
@@ -25,9 +38,6 @@ function Login() {
             </p>
         </div>
     )
-}
-
-function Connect(email, password) {
 }
 
 export default Login;

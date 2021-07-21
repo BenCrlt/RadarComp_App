@@ -1,13 +1,38 @@
 import '../../styles/Login/Sign.css'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import { useState } from 'react'
+import axios from 'axios';
 
 function Sign() {
     const [email, setEmail] = useState("");
     const [lastName, setLastName] = useState("");
     const [firstName, setFirstName] = useState("");
     const [password, setPassword] = useState("");
-    const [secondPass, setSecondPass] = useState("")
+    const [secondPass, setSecondPass] = useState("");
+
+    const history = useHistory();
+
+    function CreateUser() {
+        axios.get("http://localhost:3000/api/user/check/" + email)
+            .then((res) => {
+                console.log(res.data);
+                if (!res.data.length) {
+                    axios.post('http://localhost:3000/api/user/create', {
+                        first_name : firstName,
+                        last_name : lastName,
+                        email : email,
+                        password: password
+                    })
+                    .then(() => {
+                        history.push("/home");
+                    })
+                } else {
+                    console.log('Utilisateur existe déja');
+                    alert("Cet utilisateur existe déja ! ");
+                }
+            })
+    }
+
     return (
         <div className="sign">
             <h1>INSCRIPTION</h1>
@@ -31,7 +56,7 @@ function Sign() {
                 <label htmlFor="mdp">Validation du mot de passe</label>
                 <input type="password" id="mdp" placeholder="Entrer de nouveau votre mot de passe" onChange={(e) => setSecondPass(e.target.value)} value={secondPass}></input>
             </div>
-            <button className="sign-btn-creation" onClick={() => CreateUser(email, lastName, firstName, password, secondPass)}>CREER</button>
+            <button className="sign-btn-creation" onClick={() => CreateUser()}>CREER</button>
             <p>
                 Déja inscrit ? &nbsp;
                 <Link to="/">
@@ -40,10 +65,6 @@ function Sign() {
             </p>
         </div>
     )
-}
-
-function CreateUser(email, lastName, firstName, password, secondPass) {
-    console.log(email + lastName + firstName + password + secondPass);
 }
 
 export default Sign;

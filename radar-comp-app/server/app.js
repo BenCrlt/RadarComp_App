@@ -60,8 +60,8 @@ app.get('/api/list_skills', (req, res, next) => {
     });
 })
 
-app.get('/api/list_items/:id_skill', (req, res, next) => {
-    const query_sql = "SELECT * FROM item WHERE item_skill_id = " + req.params.id_skill + ";";
+app.get('/api/list_items/', (req, res, next) => {
+    const query_sql = "SELECT * FROM item;";
     db.query(query_sql, function (err, result) {
         if (err) throw err;
         res.status(200).json(result);

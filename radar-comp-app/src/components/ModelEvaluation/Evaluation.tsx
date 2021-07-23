@@ -2,14 +2,15 @@ import '../../styles/ModelEvaluation/Evaluation.css'
 import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Skill from './Skill';
-import { fetchListSkills } from '../../store/evaluation/actions';
+import { fetchListSkills, fetchListItems } from '../../store/evaluation/actions';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function Evaluation({listValueItems, listSkills, fetchListSkills} : PropsFromRedux) {
+function Evaluation({listValueItems, listSkills, fetchListSkills, fetchListItems } : PropsFromRedux) {
     useEffect(() => {
-        fetchListSkills();
-    }, [listSkills, fetchListSkills])
+        fetchListSkills()
+            .then(res => { fetchListItems()})
+    }, [fetchListSkills, fetchListItems])
     const rangeScale = 5;
     const date = new Date().toLocaleDateString();
     return (
@@ -38,7 +39,7 @@ const mapStateToProps = (state : StateType) => {
     }
 }
 
-const mapDispatchToProps = { fetchListSkills }
+const mapDispatchToProps = { fetchListSkills, fetchListItems }
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

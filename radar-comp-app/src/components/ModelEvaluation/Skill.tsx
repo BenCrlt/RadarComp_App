@@ -1,31 +1,33 @@
 import '../../styles/ModelEvaluation/Skill.css'
 import Item from './Item'
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { connect, ConnectedProps } from 'react-redux';
 
-type SkillProps = {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface SkillProps extends PropsFromRedux {
     skill: SkillType,
     rangeScale: number
 }
 
-function Skill({skill, rangeScale} : SkillProps) {
-    const [listItems, setListItems] = useState<ItemType[]>([]);
-    useEffect(() => {
-        axios.get('http://localhost:3000/api/list_items/' + skill.skill_id)
-        .then(res => {
-            setListItems(res.data);
-        });
-    }, [])
+function Skill({skill, rangeScale, listItems} : SkillProps) {
     return (
         <div className="rca-skill">
             <h2>{skill.skill_title}</h2>
             <ul>
                 {listItems.map((item) => (
-                        <Item item={item} key={item.item_id} rangeScale={rangeScale}/>
+                        item.item_skill_id === skill.skill_id && <Item item={item} key={item.item_id} rangeScale={rangeScale}/>
                     ))}
             </ul>
         </div>
     )
 }
 
-export default Skill;
+const mapStateToProps = (state : StateType) => {
+    return {
+        listItems: state.eval.listItems
+    }
+}
+
+const connector = connect(mapStateToProps);
+
+export default connector(Skill);

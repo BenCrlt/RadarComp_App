@@ -1,4 +1,9 @@
-import {createStore} from 'redux';
-import addItemValue from './reducers/evalReducer';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import evalReducer from './evaluation/reducer';
+import thunk from 'redux-thunk';
 
-export default createStore(addItemValue);
+const reducer = combineReducers({
+    eval: evalReducer
+})
+
+export default createStore(reducer, applyMiddleware(thunk));

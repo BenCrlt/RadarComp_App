@@ -1,19 +1,15 @@
 import '../../styles/ModelEvaluation/Evaluation.css'
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import axios from 'axios';
 import Skill from './Skill';
+import { fetchListSkills } from '../../store/evaluation/actions';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function Evaluation({listValueItems} : PropsFromRedux) {
-    const [listSkills, setListSkills] = useState<SkillType[]>([]);
+function Evaluation({listValueItems, listSkills, fetchListSkills} : PropsFromRedux) {
     useEffect(() => {
-        axios.get('http://localhost:3000/api/list_skills')
-        .then(res => {
-            setListSkills(res.data);
-        });
-    }, [])
+        fetchListSkills();
+    }, [listSkills, fetchListSkills])
     const rangeScale = 5;
     const date = new Date().toLocaleDateString();
     return (
@@ -37,10 +33,13 @@ function SendEvaluation(listItems : ListItemsType[]) {
 
 const mapStateToProps = (state : StateType) => {
     return {
-        listValueItems: state.listValueItems
+        listValueItems: state.eval.listValueItems,
+        listSkills: state.eval.listSkills
     }
 }
 
-const connector = connect(mapStateToProps);
+const mapDispatchToProps = { fetchListSkills }
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default connector(Evaluation);

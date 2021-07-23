@@ -1,6 +1,14 @@
 type StateType = {
-    listValueItems: ListItemsType[]
+    eval: StateEvalType
+    
 }
+
+type StateEvalType = {
+    listValueItems : ListItemsType[],
+    listSkills: SkillType[],
+    error: any
+}
+
 type ListItemsType = {
     item_id: number,
     item_skill_id: number,

@@ -1,6 +1,7 @@
 import '../../styles/ModelEvaluation/Skill.css'
 import Item from './Item'
 import { connect, ConnectedProps } from 'react-redux';
+import { SkillType, StateType } from '../../types/common/main';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -24,7 +25,7 @@ function Skill({skill, rangeScale, listItems} : SkillProps) {
 
 const mapStateToProps = (state : StateType) => {
     return {
-        listItems: state.eval.listItems
+        listItems: state.common.listItems
     }
 }
 

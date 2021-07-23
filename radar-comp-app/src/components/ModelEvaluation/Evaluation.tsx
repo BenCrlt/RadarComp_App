@@ -2,11 +2,12 @@ import '../../styles/ModelEvaluation/Evaluation.css'
 import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Skill from './Skill';
-import { fetchListSkills, fetchListItems } from '../../store/evaluation/actions';
+import { fetchListSkills, fetchListItems } from '../../store/common/actions';
+import { NoterType, StateType } from '../../types/common/main';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function Evaluation({listValueItems, listSkills, fetchListSkills, fetchListItems } : PropsFromRedux) {
+function Evaluation({listSkills, listNotes, fetchListSkills, fetchListItems } : PropsFromRedux) {
     useEffect(() => {
         fetchListSkills()
             .then(res => { fetchListItems()})
@@ -22,20 +23,20 @@ function Evaluation({listValueItems, listSkills, fetchListSkills, fetchListItems
                     ))}
                 </div>
                 <div className="rca-eval-skill-button">
-                    <button type="button" className="btn btn-primary btn-lg" onClick={() => SendEvaluation(listValueItems)}>Envoyer</button>
+                    <button type="button" className="btn btn-primary btn-lg" onClick={() => SendEvaluation(listNotes)}>Envoyer</button>
                 </div>
         </div>
     )
 }
 
-function SendEvaluation(listItems : ListItemsType[]) {
+function SendEvaluation(listItems : NoterType[]) {
     console.log(listItems);
 }
 
 const mapStateToProps = (state : StateType) => {
     return {
-        listValueItems: state.eval.listValueItems,
-        listSkills: state.eval.listSkills
+        listNotes: state.eval.listNotes,
+        listSkills: state.common.listSkills
     }
 }
 

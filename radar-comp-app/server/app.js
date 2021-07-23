@@ -53,20 +53,22 @@ app.post('/api/user/create', (req, res, next) => {
 
 //EVALUATION
 
-app.get('/api/list_skills', (req, res, next) => {
+app.get('/api/eval/list_skills', (req, res, next) => {
     db.query("SELECT * FROM skill;", function (err, result) {
         if (err) throw err;
         res.status(200).json(result);
     });
 })
 
-app.get('/api/list_items/', (req, res, next) => {
+app.get('/api/eval/list_items', (req, res, next) => {
     const query_sql = "SELECT * FROM item;";
     db.query(query_sql, function (err, result) {
         if (err) throw err;
         res.status(200).json(result);
     });
 })
+
+app.post('/api/eval/')
 
 
 

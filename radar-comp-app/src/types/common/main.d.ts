@@ -1,20 +1,21 @@
+import { AxiosError } from "axios"
+
 type StateType = {
-    eval: StateEvalType
-    
+    eval: EvalType,
+    common: CommonStateType
 }
 
-type StateEvalType = {
-    listValueItems : ListItemsType[],
+type EvalType = {
+    date: Date,
+    listNotes: NoterType[],
     listSkills: SkillType[],
     listItems: ItemType[],
     error: any
 }
 
-type ListItemsType = {
-    item_id: number,
-    item_skill_id: number,
-    item_title: string,
-    value: number
+type NoterType = {
+    noter_item_id: number,
+    noter_value: number
 }
 
 type SkillType = {
@@ -26,4 +27,10 @@ type ItemType = {
     item_id: number,
     item_skill_id: number,
     item_title: string
+}
+
+type CommonStateType = {
+    listSkills: SkillType[],
+    listItems: ItemType[],
+    error: AxiosError
 }

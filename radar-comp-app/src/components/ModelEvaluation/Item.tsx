@@ -1,6 +1,7 @@
 import '../../styles/ModelEvaluation/Item.css';
 import { useState, useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { ItemType } from '../../types/common/main';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -12,9 +13,9 @@ interface ItemProps extends PropsFromRedux {
 function Item({item, rangeScale, dispatch} : ItemProps) {
     const [inputValue, setInputValue] = useState(0);
     useEffect(() => {
-        const action = {type: 'UPDATE_ITEM_VALUE', value: {...item, id_skill: item.item_skill_id, value: inputValue}};
+        const action = {type: 'UPDATE_NOTE_ITEM', value: {noter_item_id : item.item_id, noter_value: inputValue}};
         dispatch(action);
-	}, [inputValue])
+	}, [inputValue, dispatch, item])
 
     return (
         <li key={item.item_id} className="rca-item-li">

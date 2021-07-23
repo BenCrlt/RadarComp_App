@@ -1,5 +1,6 @@
+import { EvalType } from '../../types/common/main';
 import { 
-    UPDATE_ITEM_VALUE, 
+    UPDATE_NOTE_ITEM, 
     FETCH_LIST_SKILLS_BEGIN, 
     FETCH_LIST_SKILLS_SUCCESS, 
     FETCH_LIST_SKILLS_ERROR,
@@ -8,24 +9,25 @@ import {
     FETCH_LIST_ITEMS_SUCCESS
 } from './actions'
 
-const initialState : StateEvalType = {
-    listValueItems: [],
+const initialState : EvalType = {
+    date: new Date(),
     listSkills: [],
     listItems: [],
+    listNotes: [],
     error: null
 };
 
 const evalReducer = (state = initialState, action : any) => {
-    let nextState : StateEvalType;
+    let nextState : EvalType;
     switch(action.type) {
-        case UPDATE_ITEM_VALUE:
-            const indexValue = state.listValueItems.findIndex(item => item.item_id === action.value.item_id);
+        case UPDATE_NOTE_ITEM:
+            const indexValue = state.listNotes.findIndex(item => item.noter_item_id === action.value.noter_item_id);
             if (indexValue !== -1) {
                 nextState = {
                     ...state,
-                    listValueItems: state.listValueItems.map((item, index) => {
+                    listNotes: state.listNotes.map((item, index) => {
                         if (index === indexValue) {
-                            item.value = action.value.value;
+                            item.noter_value = action.value.noter_value;
                         }
                         return item;
                     })
@@ -33,7 +35,7 @@ const evalReducer = (state = initialState, action : any) => {
             } else {
                 nextState = {
                     ...state,
-                    listValueItems: [...state.listValueItems, action.value]
+                    listNotes: [...state.listNotes, action.value]
                 }
             }
             return nextState || state;

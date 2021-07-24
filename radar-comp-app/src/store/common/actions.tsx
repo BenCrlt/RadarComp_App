@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { ItemType, SkillType } from '../../types/common/main';
+import config from '../../config';
 
 export const FETCH_LIST_SKILLS = "FETCH_LIST_SKILLS"; 
 export const FETCH_LIST_SKILLS_BEGIN = "FETCH_LIST_SKILLS_BEGIN"; 
@@ -14,7 +15,7 @@ export const FETCH_LIST_ITEMS_ERROR = "FETCH_LIST_ITEMS_ERROR";
 // FOR GET LIST SKILLS
 export const fetchListSkills = () => async (dispatch : any) => {
     dispatch(fetchListSkillsBegin);
-    axios.get('http://localhost:3000/api/list_skills')
+    axios.get(config.url + '/api/eval/list_skills')
         .then((res : AxiosResponse) => {
             dispatch(fetchListSkillsSuccess(res.data))
         })
@@ -30,7 +31,7 @@ export const fetchListSkillsError = (error : AxiosError) => ({ type : FETCH_LIST
 // FOR GET LIST ITEMS
 export const fetchListItems = () => async (dispatch : any) => {
     dispatch(fetchListItemsBegin);
-    axios.get('http://localhost:3000/api/list_items')
+    axios.get(config.url + '/api/eval/list_items')
         .then((res : AxiosResponse) => {
             dispatch(fetchListItemsSuccess(res.data));
         }) 

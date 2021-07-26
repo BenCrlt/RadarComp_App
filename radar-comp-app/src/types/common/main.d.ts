@@ -30,7 +30,17 @@ type ItemType = {
 }
 
 type CommonStateType = {
+    user : UserType,
+    isUserConnected : boolean,
     listSkills: SkillType[],
     listItems: ItemType[],
     error: AxiosError
+}
+
+type UserType = {
+    user_id : number,
+    user_last_name : string,
+    user_first_name : string,
+    user_email : string,
+    user_password : string
 }

@@ -23,7 +23,8 @@ function Sign() {
                         email : email,
                         password: password
                     })
-                    .then(() => {
+                    .then((res) => {
+                        console.log(res)
                         history.push("/home");
                     })
                 } else {

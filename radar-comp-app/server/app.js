@@ -29,6 +29,7 @@ app.get('/api/user/load/:user_email&:user_passwd', (req, res, next) => {
     const query_sql = "SELECT * FROM user WHERE user_email = ? AND user_password = ?";
     db.query(query_sql, [req.params.user_email, req.params.user_passwd], (err, resultat) => {
         if (err) throw err;
+        console.log(resultat)
         res.status(200).json(resultat);
     })
 })
@@ -47,7 +48,7 @@ app.post('/api/user/create', (req, res, next) => {
     const query_sql = "INSERT INTO user (user_first_name, user_last_name, user_email, user_password) VALUES (?,?,?,?)";
     db.query(query_sql, [req.body.first_name, req.body.last_name, req.body.email, req.body.password], (err, resultat) => {
         if (err) throw err;
-        res.status(201).json({ message: 'Objet enregistré !'});
+        res.status(201).json({ resultat});
     })
 });
 

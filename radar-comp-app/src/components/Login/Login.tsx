@@ -1,23 +1,20 @@
 import '../../styles/Login/Login.css'
 import { Link, useHistory } from 'react-router-dom'
-import { useState } from 'react'
-import axios from 'axios'
+import { useState, useEffect } from 'react'
+import { ConnectedProps, connect } from 'react-redux'
+import { connectUser } from '../../store/common/actions'
+import { StateType } from '../../types/common/main'
 
-function Login() {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function Login({isUserConnected, connectUser} : PropsFromRedux) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
 
-    function Connect(email: string, password: string) {
-        axios.get('http://localhost:3000/api/user/load/' + email + "&" + password)
-            .then(function (res) {
-                console.log(res.data);
-                if (res.data.length) {
-                    history.push("/home");
-                }
-            });
-    }
-
+    useEffect(() => {
+        isUserConnected && history.push("/home");
+    }, [isUserConnected, history])
     return (
         <div className="login">
             <h1>CONNEXION</h1>
@@ -29,7 +26,7 @@ function Login() {
                 <label htmlFor="mdp">Mot de passe</label>
                 <input type="password" id="mdp" placeholder="Entrer votre mot de passe" onChange={(e) => setPassword(e.target.value)} value={password}></input>
             </div>
-            <button className="login-btn-connexion" onClick={() => Connect(email, password)}>SE CONNECTER</button>
+            <button className="login-btn-connexion" onClick={() => connectUser(email, password)}>SE CONNECTER</button>
             <p>
                 Pas encore inscrit ? &nbsp;
                 <Link to="/sign">
@@ -40,4 +37,12 @@ function Login() {
     )
 }
 
-export default Login;
+const mapStateToProps = (state : StateType) => ({
+    isUserConnected : state.common.isUserConnected
+});
+
+const mapDispatchToProps = { connectUser };
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(Login);

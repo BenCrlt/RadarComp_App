@@ -30,7 +30,6 @@ function Evaluation({listSkills, listNotes, fetchListSkills, fetchListItems } : 
 }
 
 function SendEvaluation(listItems : NoterType[]) {
-    console.log(listItems);
 }
 
 const mapStateToProps = (state : StateType) => {

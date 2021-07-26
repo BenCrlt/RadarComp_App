@@ -3,17 +3,32 @@ import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Skill from './Skill';
 import { fetchListSkills, fetchListItems } from '../../store/common/actions';
-import { NoterType, StateType } from '../../types/common/main';
+import { StateType } from '../../types/common/main';
+import config  from '../../config';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function Evaluation({listSkills, listNotes, fetchListSkills, fetchListItems } : PropsFromRedux) {
+function Evaluation({listSkills, listNotes, user, fetchListSkills, fetchListItems } : PropsFromRedux) {
     useEffect(() => {
         fetchListSkills()
             .then(res => { fetchListItems()})
     }, [fetchListSkills, fetchListItems])
     const rangeScale = 5;
     const date = new Date().toLocaleDateString();
+    const history = useHistory();
+    const SendEvaluation = () => {
+        console.log(listNotes);
+        axios.post(config.url + '/api/eval/create_eval', {
+            user_id : user.user_id,
+            date : new Date().toISOString().slice(0, 19).replace('T', ' '),
+            listNotes: listNotes
+        })
+        .then(res => { history.push('/home')})
+        .catch(err => { console.error(err)});
+    }
+
     return (
         <div className="rca-eval">
             <h1 className="border-bottom">Evaluation {date}</h1>
@@ -23,19 +38,17 @@ function Evaluation({listSkills, listNotes, fetchListSkills, fetchListItems } : 
                     ))}
                 </div>
                 <div className="rca-eval-skill-button">
-                    <button type="button" className="btn btn-primary btn-lg" onClick={() => SendEvaluation(listNotes)}>Envoyer</button>
+                    <button type="button" className="btn btn-primary btn-lg" onClick={SendEvaluation}>Envoyer</button>
                 </div>
         </div>
     )
 }
 
-function SendEvaluation(listItems : NoterType[]) {
-}
-
 const mapStateToProps = (state : StateType) => {
     return {
         listNotes: state.eval.listNotes,
-        listSkills: state.common.listSkills
+        listSkills: state.common.listSkills,
+        user: state.common.user
     }
 }
 

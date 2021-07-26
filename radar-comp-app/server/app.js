@@ -55,7 +55,7 @@ app.post('/api/user/create', (req, res, next) => {
 //EVALUATION
 
 app.get('/api/eval/list_skills', (req, res, next) => {
-    db.query("SELECT * FROM skill;", function (err, result) {
+    db.query("SELECT * FROM skill;", (err, result) => {
         if (err) throw err;
         res.status(200).json(result);
     });
@@ -63,14 +63,23 @@ app.get('/api/eval/list_skills', (req, res, next) => {
 
 app.get('/api/eval/list_items', (req, res, next) => {
     const query_sql = "SELECT * FROM item;";
-    db.query(query_sql, function (err, result) {
+    db.query(query_sql, (err, result) => {
         if (err) throw err;
         res.status(200).json(result);
     });
 })
 
-app.post('/api/eval/')
-
-
+app.post('/api/eval/create_eval', (req, res, next) => {
+    const query_create_eval = "INSERT INTO evaluation (eval_id_user, eval_date) VALUES (?, ?)";
+    db.query(query_create_eval, [req.body.user_id, req.body.date], (err, resultat) => {
+        if (err) throw err;
+        res.status(201).json({ resultat })
+        const listNotes = req.body.listNotes.map((note) => ([resultat.insertId, note.noter_item_id, note.noter_value]))
+        const query_add_notes = "INSERT INTO noter VALUES ?";
+        db.query(query_add_notes, [listNotes], (err2, resultat2) => {
+            if (err2) throw err2;
+        });
+    })
+})
 
 module.exports = app;

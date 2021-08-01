@@ -6,18 +6,20 @@ import RadarChart from './RadarChart'
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function Home({user, setUser} : PropsFromRedux) {
+function Home({user, listSkills, setUser} : PropsFromRedux) {
+    const listLabels : string[] = listSkills.map((skill) => {return skill.skill_title});
     return (
         <div>
             <h1>Hello {user.user_last_name + " " + user.user_first_name + " !"}</h1>
-            <RadarChart />
+            <RadarChart listLabels={listLabels} />
         </div>
         
     )
 }
 
 const mapStateToProps = (state : StateType) => ({
-    user : state.common.user
+    user : state.common.user,
+    listSkills : state.common.listSkills
 })
 
 const mapDispatchToProps = { setUser };

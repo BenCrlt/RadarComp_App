@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  user_id         Int @id @default(autoincrement())
+  user_email      String @unique
+  user_password   String
+  user_first_name String
+  user_last_name  String
+  user_list_evals Evaluation[]
+}
+
+model Evaluation {
+  eval_id         Int @id @default(autoincrement())
+  eval_date       DateTime @default(now())
+  eval_user       User @relation(fields: [eval_user_id], references: [user_id])
+  eval_user_id    Int
+  eval_list_notes Noter[]
+}
+
+model Noter {
+  noter_eval_id   Int @id
+  noter_eval      Evaluation @relation(fields: [noter_eval_id], references: [eval_id])
+  noter_item_id   Int
+  noter_item      Item @relation(fields: [noter_item_id], references: [item_id])
+  noter_value     Int
+}
+
+model Item {
+  item_id         Int @id @default(autoincrement())
+  item_title      String
+  item_skill_id   Int
+  item_skill      Skill @relation(fields: [item_skill_id], references: [skill_id])
+  item_list_notes Noter[]
+}
+
+model Skill {
+  skill_id        Int @id @default(autoincrement())
+  skill_title     String
+  skill_items     Item[]
+}

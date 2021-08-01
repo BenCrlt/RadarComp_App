@@ -3,8 +3,8 @@ type Query {
 }
 
 type Mutation {
-    createEvaluation(id_user: ID!)
-    updateItemValue(id_item: ID!, value: Int!)
+    signup(email: String!, password: String!, first_name: String!, last_name: String!): User
+    login(email: String!, password: String!): User
 }
 
 type User {
@@ -19,7 +19,13 @@ type Evaluation {
     id: ID!
     date: Date!
     user: User!
-    items: [Item!]!
+    notes: [Noter!]!
+}
+
+type Noter {
+    evaluation: Evaluation!
+    item: Item!
+    value: Int!
 }
 
 type Item {

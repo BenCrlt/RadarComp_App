@@ -1,0 +1,35 @@
+type Query {
+    user(id: ID!): User
+}
+
+type Mutation {
+    createEvaluation(id_user: ID!)
+    updateItemValue(id_item: ID!, value: Int!)
+}
+
+type User {
+    id: ID!
+    email: String!
+    first_name: String!
+    last_name: String!
+    password: String!
+}
+
+type Evaluation {
+    id: ID!
+    date: Date!
+    user: User!
+    items: [Item!]!
+}
+
+type Item {
+    id: ID!
+    title: String!
+    skill: Skill!
+    value: Int!
+}
+
+type Skill {
+    id: ID!
+    title: String!
+}

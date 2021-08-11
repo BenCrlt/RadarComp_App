@@ -17,7 +17,7 @@ type User {
 
 type Evaluation {
     id: ID!
-    date: Date!
+    date: String!
     user: User!
     notes: [Noter!]!
 }

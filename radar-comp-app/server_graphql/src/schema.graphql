@@ -1,41 +1,48 @@
 type Query {
     user(id: ID!): User
+    listSkills: [Skill!]!
+    listItemsFromSkill(skill_id: ID!): [Item!]!
 }
 
 type Mutation {
     signup(email: String!, password: String!, first_name: String!, last_name: String!): User
     login(email: String!, password: String!): User
+    createEvaluation(user_id: ID!): Evaluation!
+    addNoteToEval(id_eval: ID!, id_item: ID!, value: Int!) : Noter!
 }
 
 type User {
-    id: ID!
-    email: String!
-    first_name: String!
-    last_name: String!
-    password: String!
+    user_id: ID!
+    user_email: String!
+    user_first_name: String!
+    user_last_name: String!
+    user_password: String!
+    user_list_evals: [Evaluation!]!
 }
 
 type Evaluation {
-    id: ID!
-    date: String!
-    user: User!
-    notes: [Noter!]!
+    eval_id: ID!
+    eval_date: String!
+    eval_user: User!
+    eval_list_notes: [Noter!]!
 }
 
 type Noter {
-    evaluation: Evaluation!
-    item: Item!
-    value: Int!
+    noter_id: ID!
+    noter_eval: Evaluation!
+    noter_item: Item!
+    noter_value: Int!
 }
 
 type Item {
-    id: ID!
-    title: String!
-    skill: Skill!
-    value: Int!
+    item_id: ID!
+    item_title: String!
+    item_skill: Skill!
+    item_list_notes: [Noter!]!
 }
 
 type Skill {
-    id: ID!
-    title: String!
+    skill_id: ID!
+    skill_title: String!
+    skill_items: [Item!]!
 }

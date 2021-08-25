@@ -1,7 +1,7 @@
-function notes(parent, args, context) {
-    return context.prisma.evaluation.findMany({where : { id: parent.id }}).noter();
+function eval_list_notes(parent, args, context) {
+    return context.prisma.evaluation.findUnique({where : { eval_id: parent.eval_id }}).eval_list_notes();
 }
 
 module.exports = {
-    notes
+    eval_list_notes
 }

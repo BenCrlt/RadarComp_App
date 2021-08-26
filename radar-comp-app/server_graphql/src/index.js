@@ -9,6 +9,7 @@ const User = require('../src/resolvers/User');
 const Evaluation = require('../src/resolvers/Evaluation');
 const Item = require('../src/resolvers/Item');
 const Skill = require('../src/resolvers/Skill');
+const Noter = require('../src/resolvers/Noter');
 
 const resolvers = {
     Query,
@@ -16,7 +17,8 @@ const resolvers = {
     User,
     Evaluation,
     Item,
-    Skill
+    Skill,
+    Noter
 }
 
 const prisma = new PrismaClient();

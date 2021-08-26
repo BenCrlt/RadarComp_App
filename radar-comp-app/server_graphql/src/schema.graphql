@@ -28,7 +28,6 @@ type Evaluation {
 }
 
 type Noter {
-    noter_id: ID!
     noter_eval: Evaluation!
     noter_item: Item!
     noter_value: Int!

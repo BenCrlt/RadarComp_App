@@ -21,16 +21,26 @@ async function login(parent, args, context) {
 }
 
 async function createEvaluation(parent, args, context) {
-    const userFound = await context.prisma.user.findUnique({ where: {user_id: args.user_id}});
-    console.log(userFound)
-    const eval_created = await context.prisma.evaluation.create({data: {
-        eval_user: userFound
+    const user_id = +args.user_id;
+    return await context.prisma.evaluation.create({data: {
+        eval_user_id: user_id
     }})
-    console.log(eval_created);
+}
+
+async function addNoteToEval(parent, args, context) {
+    const item_id = +args.id_item;
+    const eval_id = +args.id_eval;
+    return await context.prisma.noter.create({data: {
+        noter_eval_id: eval_id,
+        noter_item_id: item_id,
+        noter_value: args.value
+    }})
+
 }
 
 module.exports = {
     signup,
     login,
-    createEvaluation
+    createEvaluation,
+    addNoteToEval
 }   

@@ -28,12 +28,13 @@ model Evaluation {
 }
 
 model Noter {
-  noter_id        Int @id @default(autoincrement())
   noter_eval_id   Int
   noter_eval      Evaluation @relation(fields: [noter_eval_id], references: [eval_id])
   noter_item_id   Int
   noter_item      Item @relation(fields: [noter_item_id], references: [item_id])
   noter_value     Int
+
+  @@id([noter_eval_id, noter_item_id])
 }
 
 model Item {

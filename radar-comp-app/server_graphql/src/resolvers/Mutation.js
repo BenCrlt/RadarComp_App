@@ -7,16 +7,13 @@ async function signup(parent, args, context) {
             user_first_name: args.first_name,
             user_last_name: args.last_name
         }});
-    } else {
-        throw new Error("User already exist");
     }
 }
 
 async function login(parent, args, context) {
     const userFound = await context.prisma.user.findUnique({where : {user_email : args.email}});
-    const matchPassword = userFound.user_password === args.password ? true : false;
-    if (userFound && matchPassword) {
-        return userFound
+    if (userFound) {
+        return (userFound.user_password === args.password) && userFound;
     }
 }
 

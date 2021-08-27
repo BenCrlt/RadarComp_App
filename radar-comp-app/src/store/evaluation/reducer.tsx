@@ -9,16 +9,15 @@ import {
     FETCH_LIST_ITEMS_SUCCESS
 } from './actions'
 
-const initialState : EvalType = {
-    date: new Date(),
-    listSkills: [],
-    listItems: [],
-    listNotes: [],
-    error: null
+/*const initialState : EvalType = {
+    eval_date: new Date(),
+    eval_list_notes: [],
+    eval_id: 0,
+    eval_user:
 };
 
 const evalReducer = (state = initialState, action : any) => {
-    let nextState : EvalType;
+    /*let nextState : EvalType;
     switch(action.type) {
         case UPDATE_NOTE_ITEM:
             const indexValue = state.listNotes.findIndex(item => item.noter_item_id === action.value.noter_item_id);
@@ -56,4 +55,4 @@ const evalReducer = (state = initialState, action : any) => {
     }
 }
 
-export default evalReducer;
+export default evalReducer;*/

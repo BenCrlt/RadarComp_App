@@ -16,7 +16,7 @@ function Skill({skill, rangeScale, listItems} : SkillProps) {
             <h2>{skill.skill_title}</h2>
             <ul>
                 {listItems.map((item) => (
-                        item.item_skill_id === skill.skill_id && <Item item={item} key={item.item_id} rangeScale={rangeScale}/>
+                        item.item_skill.skill_id === skill.skill_id && <Item item={item} key={item.item_id} rangeScale={rangeScale}/>
                     ))}
             </ul>
         </div>

@@ -5,28 +5,39 @@ type StateType = {
     common: CommonStateType
 }
 
+type UserType = {
+    user_id : number,
+    user_email: string,
+    user_first_name: string,
+    user_last_name : string,
+    user_password : string,
+    user_list_evals: EvalType[]
+}
+
 type EvalType = {
-    date: Date,
-    listNotes: NoterType[],
-    listSkills: SkillType[],
-    listItems: ItemType[],
-    error: any
+    eval_id: number,
+    eval_date: Date,
+    eval_user: UserType,
+    eval_list_notes: NoterType[]
 }
 
 type NoterType = {
-    noter_item_id: number,
+    noter_eval: EvalType,
+    noter_item: ItemType,
     noter_value: number
 }
 
 type SkillType = {
     skill_id : number,
-    skill_title : string
+    skill_title : string,
+    skill_items: ItemType[]
 }
 
 type ItemType = {
     item_id: number,
-    item_skill_id: number,
-    item_title: string
+    item_skill: SkillType,
+    item_title: string,
+    item_list_notes: NoterType[]
 }
 
 type CommonStateType = {
@@ -35,12 +46,4 @@ type CommonStateType = {
     listSkills: SkillType[],
     listItems: ItemType[],
     error: AxiosError
-}
-
-type UserType = {
-    user_id : number,
-    user_last_name : string,
-    user_first_name : string,
-    user_email : string,
-    user_password : string
 }

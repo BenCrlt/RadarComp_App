@@ -46,7 +46,7 @@ function Evaluation({listSkills, listNotes, user, fetchListSkills, fetchListItem
 
 const mapStateToProps = (state : StateType) => {
     return {
-        listNotes: state.eval.listNotes,
+        listNotes: state.eval.eval_list_notes,
         listSkills: state.common.listSkills,
         user: state.common.user
     }

@@ -3,18 +3,37 @@ import { Link, useHistory } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { ConnectedProps, connect } from 'react-redux'
 import { connectUser } from '../../store/common/actions'
-import { StateType } from '../../types/common/main'
-
+import { StateType, UserType } from '../../types/common/main'
+import {gql, useMutation} from '@apollo/client'
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function Login({isUserConnected, connectUser} : PropsFromRedux) {
+const LoginMutation = gql `
+    mutation Mutation($loginEmail: String!, $loginPassword: String!) {
+        login(email: $loginEmail, password: $loginPassword) {
+            user_id
+            user_email
+            user_first_name
+            user_last_name
+        }
+    }
+`
+
+function Login({connectUser} : PropsFromRedux) {
+    //Hooks
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
+    const [login, {data, loading, error}] = useMutation<{ login: UserType}, {loginEmail: string, loginPassword: string}>(LoginMutation, {
+        variables: {loginEmail: email, loginPassword: password}
+    })
 
     useEffect(() => {
-        isUserConnected && history.push("/home");
-    }, [isUserConnected, history])
+        if (data?.login) {
+            connectUser(data.login);
+            history.push("/home");
+        }
+    }, [data, connectUser, history]);  
+
     return (
         <div className="login">
             <h1>CONNEXION</h1>
@@ -26,19 +45,19 @@ function Login({isUserConnected, connectUser} : PropsFromRedux) {
                 <label htmlFor="mdp">Mot de passe</label>
                 <input type="password" id="mdp" placeholder="Entrer votre mot de passe" onChange={(e) => setPassword(e.target.value)} value={password}></input>
             </div>
-            <button className="login-btn-connexion" onClick={() => connectUser(email, password)}>SE CONNECTER</button>
+            <button className="login-btn-connexion" onClick={() => email && password && login()}>SE CONNECTER</button>
             <p>
                 Pas encore inscrit ? &nbsp;
                 <Link to="/sign">
                     Créer un compte
                 </Link>
             </p>
+            {loading && <div>Connexion</div>}
         </div>
     )
 }
 
 const mapStateToProps = (state : StateType) => ({
-    isUserConnected : state.common.isUserConnected
 });
 
 const mapDispatchToProps = { connectUser };

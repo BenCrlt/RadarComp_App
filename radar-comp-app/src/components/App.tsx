@@ -16,7 +16,7 @@ import {
 
 function App() {
   return (
-    <Provider store={store}>
+      <Provider store={store}>
       <div className="rca-container">
         <Router>
           <Banner/>
@@ -40,7 +40,6 @@ function App() {
         </Router>
       </div>
     </Provider>
-
   );
 }
 

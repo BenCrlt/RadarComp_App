@@ -27,6 +27,15 @@ function Login({connectUser} : PropsFromRedux) {
         variables: {loginEmail: email, loginPassword: password}
     })
 
+    const checkLogin = async () => {
+        if (email && password) {
+            try {
+                await login();
+            } catch(e) {
+                alert(e);
+            }
+        }
+    }
     useEffect(() => {
         if (data?.login) {
             connectUser(data.login);
@@ -39,13 +48,13 @@ function Login({connectUser} : PropsFromRedux) {
             <h1>CONNEXION</h1>
             <div className="login-input">
                 <label htmlFor="email">Email</label>
-                <input type="email" id="email" placeholder="Entrer votre email" onChange={(e) => setEmail(e.target.value)} value={email}></input>
+                <input type="email" id="email" placeholder={"Entrer votre email"} onChange={(e) => setEmail(e.target.value)} value={email}></input>
             </div>
             <div className="login-input">
                 <label htmlFor="mdp">Mot de passe</label>
                 <input type="password" id="mdp" placeholder="Entrer votre mot de passe" onChange={(e) => setPassword(e.target.value)} value={password}></input>
             </div>
-            <button className="login-btn-connexion" onClick={() => email && password && login()}>SE CONNECTER</button>
+            <button className="login-btn-connexion" onClick={checkLogin}>SE CONNECTER</button>
             <p>
                 Pas encore inscrit ? &nbsp;
                 <Link to="/sign">

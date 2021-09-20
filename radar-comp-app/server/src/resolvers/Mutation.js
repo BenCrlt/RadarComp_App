@@ -12,9 +12,10 @@ async function signup(parent, args, context) {
 
 async function login(parent, args, context) {
     const userFound = await context.prisma.user.findUnique({where : {user_email : args.email}});
-    if (userFound) {
-        return (userFound.user_password === args.password) && userFound;
-    }
+    if (!userFound) throw new Error('Email is already in use');
+    if (userFound.user_password !== args.password) throw new Error('Wrong password');
+
+    return userFound;
 }
 
 async function createEvaluation(parent, args, context) {

@@ -3,7 +3,6 @@ import thunk from 'redux-thunk';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-//import evalReducer from './evaluation/reducer';
 import commonReducer from './common/reducer';
 
 const persistConfig = {
@@ -12,7 +11,6 @@ const persistConfig = {
 }
 
 const reducer = combineReducers({
-    //eval: evalReducer,
     common: persistReducer(persistConfig, commonReducer), 
 })
 

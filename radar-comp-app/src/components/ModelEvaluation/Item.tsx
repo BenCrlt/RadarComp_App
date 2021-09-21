@@ -13,7 +13,7 @@ interface ItemProps extends PropsFromRedux {
 function Item({item, rangeScale, dispatch} : ItemProps) {
     const [inputValue, setInputValue] = useState(0);
     useEffect(() => {
-        const action = {type: 'UPDATE_NOTE_ITEM', value: {noter_item_id : item.item_id, noter_value: inputValue}};
+        const action = {type: 'UPDATE_LIST_NOTES', value: {item_id : item.item_id, note: inputValue}};
         dispatch(action);
 	}, [inputValue, dispatch, item])
 

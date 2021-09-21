@@ -1,12 +1,11 @@
 import { AxiosError } from "axios"
 
 type StateType = {
-    eval: EvalType,
     common: CommonStateType
 }
 
 type UserType = {
-    user_id : number,
+    user_id : string,
     user_email: string,
     user_first_name: string,
     user_last_name : string,
@@ -15,7 +14,7 @@ type UserType = {
 }
 
 type EvalType = {
-    eval_id: number,
+    eval_id: string,
     eval_date: Date,
     eval_user: UserType,
     eval_list_notes: NoterType[]
@@ -28,13 +27,13 @@ type NoterType = {
 }
 
 type SkillType = {
-    skill_id : number,
+    skill_id : string,
     skill_title : string,
     skill_items: ItemType[]
 }
 
 type ItemType = {
-    item_id: number,
+    item_id: string,
     item_skill: SkillType,
     item_title: string,
     item_list_notes: NoterType[]
@@ -43,7 +42,10 @@ type ItemType = {
 type CommonStateType = {
     user : UserType,
     isUserConnected : boolean,
-    listSkills: SkillType[],
-    listItems: ItemType[],
-    error: AxiosError
+    listNotes: NoteItemType[]
+}
+
+type NoteItemType = {
+    item_id: string,
+    note: number
 }

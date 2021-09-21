@@ -3,32 +3,22 @@ import Item from './Item'
 import { connect, ConnectedProps } from 'react-redux';
 import { SkillType, StateType } from '../../types/common/main';
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-interface SkillProps extends PropsFromRedux {
+interface SkillProps {
     skill: SkillType,
     rangeScale: number
 }
 
-function Skill({skill, rangeScale, listItems} : SkillProps) {
+function Skill({skill, rangeScale} : SkillProps) {
     return (
         <div className="rca-skill">
             <h2>{skill.skill_title}</h2>
             <ul>
-                {listItems.map((item) => (
-                        item.item_skill.skill_id === skill.skill_id && <Item item={item} key={item.item_id} rangeScale={rangeScale}/>
+                {skill.skill_items.map((item) => (
+                        <Item item={item} key={item.item_id} rangeScale={rangeScale}/>
                     ))}
             </ul>
         </div>
     )
 }
 
-const mapStateToProps = (state : StateType) => {
-    return {
-        listItems: state.common.listItems
-    }
-}
-
-const connector = connect(mapStateToProps);
-
-export default connector(Skill);
+export default Skill;

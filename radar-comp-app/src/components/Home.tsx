@@ -8,14 +8,15 @@ import {useHistory} from 'react-router-dom'
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function Home({user, listSkills, setUser, isUserConnected} : PropsFromRedux) {
+function Home({user, setUser, isUserConnected} : PropsFromRedux) {
     const history = useHistory();
     useEffect(() => {
         if (!isUserConnected) {
             history.push('/login')
         }
     }, [isUserConnected, history])
-    const listLabels : string[] = listSkills.map((skill) => {return skill.skill_title});
+    //const listLabels : string[] = listSkills.map((skill) => {return skill.skill_title});
+    const listLabels : string[] = [];
     return (
         <div>
             <h1>Hello {user.user_last_name + " " + user.user_first_name + " !"}</h1>
@@ -27,7 +28,6 @@ function Home({user, listSkills, setUser, isUserConnected} : PropsFromRedux) {
 
 const mapStateToProps = (state : StateType) => ({
     user : state.common.user,
-    listSkills : state.common.listSkills,
     isUserConnected: state.common.isUserConnected
 })
 

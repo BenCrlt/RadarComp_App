@@ -1,42 +1,27 @@
+import { CommonStateType } from "../../types/common/main";
 import { 
-    FETCH_LIST_ITEMS_BEGIN,
-    FETCH_LIST_ITEMS_ERROR,
-    FETCH_LIST_ITEMS_SUCCESS,
-    FETCH_LIST_SKILLS_BEGIN,
-    FETCH_LIST_SKILLS_ERROR,
-    FETCH_LIST_SKILLS_SUCCESS,
     CONNECT_USER,
     DISCONNECT_USER,
-    SET_USER
+    SET_USER,
+    CLEAR_LIST_NOTES,
+    UPDATE_LIST_NOTES
 } from "../common/actions";
 
-const initialState = {
+const initialState : CommonStateType = {
     user: {
-        user_id : -1,
+        user_id : "",
         user_last_name : "",
         user_first_name : "",
         user_email : "",
-        user_password : ""
+        user_password : "",
+        user_list_evals: []
     },
     isUserConnected : false,
-    listItems: [],
-    listSkills: [],
-    error: null
+    listNotes: []
 }
 const commonReducer = (state = initialState, action : any) => {
+    let nextState : CommonStateType;
     switch(action.type) {
-        case FETCH_LIST_SKILLS_BEGIN:
-            return { ...state}
-        case FETCH_LIST_SKILLS_SUCCESS:
-            return {...state , listSkills: action.skills } 
-        case FETCH_LIST_SKILLS_ERROR:
-            return {...state, error: action.error } 
-        case FETCH_LIST_ITEMS_BEGIN:
-            return { ...state}
-        case FETCH_LIST_ITEMS_SUCCESS:
-            return { ...state, listItems: action.items}
-        case FETCH_LIST_ITEMS_ERROR:
-            return { ...state, error: action.error}
         case CONNECT_USER: 
             return { ...state, user: action.user, isUserConnected : true }
         case DISCONNECT_USER:
@@ -46,6 +31,27 @@ const commonReducer = (state = initialState, action : any) => {
                 return { ...state, user : action.user, isUserConnected: false}
             }
             return { ...state}
+        case CLEAR_LIST_NOTES: 
+            return { ...state, listNotes: []}
+        case UPDATE_LIST_NOTES:
+            const indexValue = state.listNotes.findIndex(item => item.item_id === action.value.item_id);
+            if (indexValue !== -1) {
+                nextState = {
+                    ...state,
+                    listNotes: state.listNotes.map((item, index) => {
+                        if (index === indexValue) {
+                            item.note = action.value.note;
+                        }
+                        return item;
+                    })
+                }
+            } else {
+                nextState = {
+                    ...state,
+                    listNotes: [...state.listNotes, action.value]
+                }
+            }
+            return nextState || state;
         default:
             return state;
     }

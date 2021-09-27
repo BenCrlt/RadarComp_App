@@ -2,6 +2,16 @@ import Chart, { ChartOptions, ScaleChartOptions } from 'chart.js';
 import { ChartConfiguration } from 'chart.js';
 import { ChartData, ChartDataset, ChartType } from 'chart.js';
 import { Radar } from 'react-chartjs-2'
+import { EvalType, ItemType, NoterType, SkillType } from '../types/common/main';
+
+interface DatasetType {
+  label: string,
+  data: number[],
+  backgroundColor: string,
+  borderColor: string,
+}
+
+const MAX_EVALS_TO_SHOW = 5;
 
 const backgroundColor : string[] = [
     'rgba(255, 99, 132, 0.2)',
@@ -19,13 +29,38 @@ const borderColor : string[] = [
 ]
 
 type RadarChartProps = {
-    listLabels? : string[],
-    datasets?: Number[]
+    listSkills : SkillType[],
+    listEvals : EvalType[],
+    datasets?: number[]
 }
 
-function RadarChart({listLabels, datasets} : RadarChartProps)  {
+function RadarChart({listSkills, listEvals} : RadarChartProps)  {
+    const indexEval = listEvals.length <= MAX_EVALS_TO_SHOW ? listEvals.length : MAX_EVALS_TO_SHOW;
+
+    let datasets : DatasetType[] = [];
+    for(let i : number = 0; i < indexEval; i++) {
+        let items : NoterType[];
+        let data_radar : number[];
+
+        //Get the average of the skills
+        /*listSkills.forEach(skill => {
+          items = listEvals[indexEval].eval_list_notes.filter(note => note.noter_item.item_skill.skill_id === skill.skill_id);
+          //data_radar.push(items.reduce((previousValue, currentValue) => previousValue + currentValue))
+          items.forEach(item => { 
+            let total : number = item.noter_value;
+            data_radar.push(Math.round(total/items.length));
+          })
+        });*/
+        datasets.push({
+          label: "Evaluation du " + listEvals[i].eval_date,
+          data: [],
+          backgroundColor: backgroundColor[i],
+          borderColor: borderColor[i]
+        })
+    }
+
     const data = {
-        labels: listLabels,
+        labels: listSkills.map(skill => skill.skill_title),
         datasets: [
           {
             label: '1',

@@ -46,7 +46,7 @@ function CreateEvaluation({listNotes, user} : PropsFromRedux) {
             });
             history.push("/home");
         }
-    }, [data_createEval, addNoteToEval, listNotes])
+    }, [data_createEval, addNoteToEval, listNotes, history])
 
     return (
         <div className="rca-eval-skill-button">

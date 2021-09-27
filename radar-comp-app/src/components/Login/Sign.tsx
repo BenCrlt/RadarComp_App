@@ -27,7 +27,7 @@ function Sign({connectUser} : PropsFromRedux) {
     const [secondPass, setSecondPass] = useState("");
     const history = useHistory();
 
-    const [signup, {data, loading, error}] = useMutation<{signup : UserType}, {signupEmail: string, signupPassword: string, signupFirstName: string, signupLastName: string}>(SignupMutation, {
+    const [signup, {data}] = useMutation<{signup : UserType}, {signupEmail: string, signupPassword: string, signupFirstName: string, signupLastName: string}>(SignupMutation, {
         variables: {
             signupEmail: email,
             signupPassword: password,

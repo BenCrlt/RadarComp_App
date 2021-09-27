@@ -1,12 +1,46 @@
 import '../styles/Home.css'
 import { connect, ConnectedProps } from 'react-redux'
-import { StateType } from '../types/common/main';
+import { StateType, UserType, SkillType, EvalType} from '../types/common/main';
 import { setUser } from '../store/common/actions'
 import RadarChart from './RadarChart'
 import { useEffect } from 'react';
 import {useHistory} from 'react-router-dom'
+import {gql, useQuery } from '@apollo/client'
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const GET_USER_INFO = gql`
+    query Query($userId: ID!) {
+        user(id: $userId) {
+            user_list_evals {
+                eval_id
+                eval_date
+                eval_list_notes {
+                    noter_item {
+                        item_id,
+                        item_skill {
+                            skill_id
+                        }
+                    }
+                    noter_value
+                }
+            }
+        }
+    }
+`
+
+const GET_SKILLS = gql`
+    query Query {
+        listSkills {
+            skill_id
+            skill_title
+            skill_items {
+                item_id
+                item_title
+            }
+        }
+    } 
+`
 
 function Home({user, setUser, isUserConnected} : PropsFromRedux) {
     const history = useHistory();
@@ -15,12 +49,18 @@ function Home({user, setUser, isUserConnected} : PropsFromRedux) {
             history.push('/login')
         }
     }, [isUserConnected, history])
-    //const listLabels : string[] = listSkills.map((skill) => {return skill.skill_title});
-    const listLabels : string[] = [];
+
+    const {data: user_data} = useQuery<{user: UserType}, {userId: string}>(GET_USER_INFO, {
+        variables: {userId: user.user_id}
+    });
+    const {data: skills_data} = useQuery<{listSkills : SkillType[]}>(GET_SKILLS);
+
+    const listEvals : EvalType[] = user_data ? user_data.user.user_list_evals : [];
+    const listSkills : SkillType[] = skills_data ? skills_data.listSkills : [];
     return (
         <div>
             <h1>Hello {user.user_last_name + " " + user.user_first_name + " !"}</h1>
-            <RadarChart listLabels={listLabels} />
+            <RadarChart listSkills ={listSkills} listEvals={listEvals}/>
         </div>
         
     )

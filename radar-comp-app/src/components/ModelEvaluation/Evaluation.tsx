@@ -26,7 +26,7 @@ function Evaluation({user, listNotes, clearListNotes} : PropsFromRedux) {
     useEffect(() => {
         clearListNotes();
     }, [clearListNotes]);
-    const {loading, error, data } = useQuery<{listSkills : SkillType[]}>( GQL_EVALUATION);
+    const {data} = useQuery<{listSkills : SkillType[]}>( GQL_EVALUATION);
     const rangeScale = 5;
     const date = new Date().toLocaleDateString();
     return (

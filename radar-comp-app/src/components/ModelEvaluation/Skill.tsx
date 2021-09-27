@@ -1,7 +1,6 @@
 import '../../styles/ModelEvaluation/Skill.css'
 import Item from './Item'
-import { connect, ConnectedProps } from 'react-redux';
-import { SkillType, StateType } from '../../types/common/main';
+import { SkillType } from '../../types/common/main';
 
 interface SkillProps {
     skill: SkillType,

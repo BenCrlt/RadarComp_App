@@ -7,12 +7,14 @@ function listItemsFromSkill(parent, args, context) {
     return context.prisma.item.findMany({where : {item_skill_id: skill_id}});
 }
 
-/*async function user(parent, args, context) {
+function user(parent, args, context) {
+    console.log(args)
     const id = +args.id;
-    const userFound = await context.prisma.user.findUnique({where : {user_id: id}})
-    return userFound
-}*/
+    return context.prisma.user.findUnique({where : {user_id: id}})
+}
+
 module.exports = {
     listSkills,
-    listItemsFromSkill
+    listItemsFromSkill,
+    user
 }

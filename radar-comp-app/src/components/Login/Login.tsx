@@ -23,7 +23,7 @@ function Login({connectUser} : PropsFromRedux) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
-    const [login, {data, loading, error}] = useMutation<{ login: UserType}, {loginEmail: string, loginPassword: string}>(LoginMutation, {
+    const [login, {data, loading}] = useMutation<{ login: UserType}, {loginEmail: string, loginPassword: string}>(LoginMutation, {
         variables: {loginEmail: email, loginPassword: password}
     })
 

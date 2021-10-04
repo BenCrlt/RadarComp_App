@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Evaluation Displays the information when the query is loaded 1`] = `
+<div
+  className="rca-eval"
+>
+  <h1
+    className="border-bottom"
+  >
+    Evaluation 
+    01/10/2021
+  </h1>
+  <div
+    className="rca-eval-skill-list"
+  />
+  <div
+    className="rca-eval-skill-button"
+  >
+    <button
+      className="btn btn-primary btn-lg"
+      onClick={[Function]}
+      type="button"
+    >
+      Envoyer
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Evaluation Displays the information when the query is loaded 2`] = `
+<div
+  className="rca-eval"
+>
+  <h1
+    className="border-bottom"
+  >
+    Evaluation 
+    01/10/2021
+  </h1>
+  <div
+    className="rca-eval-skill-list"
+  />
+  <div
+    className="rca-eval-skill-button"
+  >
+    <button
+      className="btn btn-primary btn-lg"
+      onClick={[Function]}
+      type="button"
+    >
+      Envoyer
+    </button>
+  </div>
+</div>
+`;

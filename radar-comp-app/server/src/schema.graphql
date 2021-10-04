@@ -1,3 +1,5 @@
+scalar Date
+
 type Query {
     user(id: ID!): User
     listSkills: [Skill!]!
@@ -22,7 +24,7 @@ type User {
 
 type Evaluation {
     eval_id: ID!
-    eval_date: String!
+    eval_date: Date!
     eval_user: User!
     eval_list_notes: [Noter!]!
 }

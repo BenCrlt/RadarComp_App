@@ -18,7 +18,7 @@ const LoginMutation = gql `
     }
 `
 
-function Login({connectUser} : PropsFromRedux) {
+function Login({connectUser, isUserConnected} : PropsFromRedux) {
     //Hooks
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -41,7 +41,13 @@ function Login({connectUser} : PropsFromRedux) {
             connectUser(data.login);
             history.push("/home");
         }
-    }, [data, connectUser, history]);  
+    }, [ data, connectUser, history]);  
+
+    useEffect(() => {
+        if (isUserConnected) {
+            history.push("/home");
+        }
+    }, [isUserConnected, history]);  
 
     return (
         <div className="login">
@@ -67,6 +73,7 @@ function Login({connectUser} : PropsFromRedux) {
 }
 
 const mapStateToProps = (state : StateType) => ({
+    isUserConnected: state.common.isUserConnected
 });
 
 const mapDispatchToProps = { connectUser };

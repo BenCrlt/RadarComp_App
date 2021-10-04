@@ -44,23 +44,28 @@ const GET_SKILLS = gql`
 
 function Home({user, setUser, isUserConnected} : PropsFromRedux) {
     const history = useHistory();
+    const {data: user_data, loading, refetch} = useQuery<{user: UserType}, {userId: string}>(GET_USER_INFO, {
+        variables: {userId: user.user_id}
+    });
+
+    const {data: skills_data} = useQuery<{listSkills : SkillType[]}>(GET_SKILLS);
+
     useEffect(() => {
         if (!isUserConnected) {
             history.push('/login')
+        } else {
+            refetch();
         }
-    }, [isUserConnected, history])
-
-    const {data: user_data} = useQuery<{user: UserType}, {userId: string}>(GET_USER_INFO, {
-        variables: {userId: user.user_id}
-    });
-    const {data: skills_data} = useQuery<{listSkills : SkillType[]}>(GET_SKILLS);
+    }, [isUserConnected, history, refetch])
 
     const listEvals : EvalType[] = user_data ? user_data.user.user_list_evals : [];
+    console.log(listEvals);
+    
     const listSkills : SkillType[] = skills_data ? skills_data.listSkills : [];
     return (
-        <div>
+        <div className="home-container">
             <h1>Hello {user.user_last_name + " " + user.user_first_name + " !"}</h1>
-            <RadarChart listSkills ={listSkills} listEvals={listEvals}/>
+            {loading ? <h1>CHARGEMENT ...</h1> : <RadarChart listSkills ={listSkills} listEvals={listEvals}/>}
         </div>
         
     )

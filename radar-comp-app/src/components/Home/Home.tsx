@@ -1,7 +1,7 @@
-import '../styles/Home.css'
+import '../../styles/Home.css'
 import { connect, ConnectedProps } from 'react-redux'
-import { StateType, UserType, SkillType, EvalType} from '../types/common/main';
-import { setUser } from '../store/common/actions'
+import { StateType, UserType, SkillType, EvalType} from '../../types/common/main';
+import { setUser } from '../../store/common/actions'
 import RadarChart from './RadarChart'
 import { useEffect } from 'react';
 import {useHistory} from 'react-router-dom'
@@ -59,12 +59,10 @@ function Home({user, setUser, isUserConnected} : PropsFromRedux) {
     }, [isUserConnected, history, refetch])
 
     const listEvals : EvalType[] = user_data ? user_data.user.user_list_evals : [];
-    console.log(listEvals);
     
     const listSkills : SkillType[] = skills_data ? skills_data.listSkills : [];
     return (
         <div className="home-container">
-            <h1>Hello {user.user_last_name + " " + user.user_first_name + " !"}</h1>
             {loading ? <h1>CHARGEMENT ...</h1> : <RadarChart listSkills ={listSkills} listEvals={listEvals}/>}
         </div>
         

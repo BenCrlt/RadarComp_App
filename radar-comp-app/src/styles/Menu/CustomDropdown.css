@@ -1,0 +1,18 @@
+.container-dropdown {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-dropdown {
+    color: white;
+}
+
+.btn-dropdown:hover {
+    color: grey;
+}
+
+.list-dropdown {
+    position: absolute;
+    width: 150px;
+    right: 20px;
+}

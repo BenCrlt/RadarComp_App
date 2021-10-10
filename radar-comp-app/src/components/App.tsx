@@ -1,6 +1,6 @@
 import '../styles/App.css';
 import Banner from './Banner';
-import Home from './Home';
+import Home from './Home/Home';
 import Evaluation from './ModelEvaluation/Evaluation';
 import Footer from './Footer';
 import Login from './Login/Login';

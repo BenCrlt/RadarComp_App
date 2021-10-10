@@ -1,6 +1,6 @@
-import '../styles/RadarChart.css'
+import '../../styles/RadarChart.css'
 import Chart from 'react-apexcharts'
-import { EvalType, NoterType, SkillType } from '../types/common/main';
+import { EvalType, NoterType, SkillType } from '../../types/common/main';
 
 interface DatasetType {
   name: string,

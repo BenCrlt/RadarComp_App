@@ -3,9 +3,11 @@ import { connect, ConnectedProps } from 'react-redux'
 import { StateType, UserType, SkillType, EvalType} from '../../types/common/main';
 import { setUser } from '../../store/common/actions'
 import RadarChart from './RadarChart'
+import ListEvaluations from './ListEvaluations';
 import { useEffect } from 'react';
 import {useHistory} from 'react-router-dom'
 import {gql, useQuery } from '@apollo/client'
+import {Container, Col, Row, Spinner, Button} from 'react-bootstrap'
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -62,10 +64,19 @@ function Home({user, setUser, isUserConnected} : PropsFromRedux) {
     
     const listSkills : SkillType[] = skills_data ? skills_data.listSkills : [];
     return (
-        <div className="home-container">
-            {loading ? <h1>CHARGEMENT ...</h1> : <RadarChart listSkills ={listSkills} listEvals={listEvals}/>}
+        <div className='home-container'>
+            <div className="home-side-panel">
+                {!loading ? <ListEvaluations listEvals={listEvals}/> : <Spinner animation="border" />}
+            </div>
+            <div className='home-main-interface'>
+                {!loading ? <RadarChart listSkills ={listSkills} listEvals={listEvals}/> : <Spinner animation="border" />}
+                <div className='home-btn-add-eval'>
+                    <Button variant="dark" size="lg">
+                        Nouvelle évaluation
+                    </Button>
+                </div>
+            </div>
         </div>
-        
     )
 }
 

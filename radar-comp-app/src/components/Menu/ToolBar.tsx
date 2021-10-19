@@ -18,15 +18,15 @@ function ToolBar({user, isUserConnected, disconnectUser} : PropsFromRedux) {
     return (
         <Navbar collapseOnSelect bg="dark" variant="dark">
             <Container fluid>
-            <Navbar.Brand href="/home"><img src={RadarIcon} width="50px" alt="radar-icon" />&nbsp; Radar App</Navbar.Brand> 
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-            </Nav>
-            <Nav>
-                {isUserConnected && <CustomDropdown nameUser={user.user_first_name + " " + user.user_last_name} onSignOut={disconnect}/>}
-            </Nav>
-            </Navbar.Collapse>
+                <Navbar.Brand href="/home"><img src={RadarIcon} width="50px" alt="radar-icon" />&nbsp; Radar App</Navbar.Brand> 
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="me-auto">
+                </Nav>
+                <Nav>
+                    {isUserConnected && <CustomDropdown nameUser={user.user_first_name + " " + user.user_last_name} onSignOut={disconnect}/>}
+                </Nav>
+                </Navbar.Collapse>
             </Container>
         </Navbar>
     )

@@ -1,5 +1,26 @@
 .home-container {
+    background-color: #F6F8FA;
+    display: grid;
+    width: 100%;
+    height:100%;
+    grid-template-columns: [side-panel-start] 350px [side-panel-end] 1100px [main-interface-end] ; 
+}
+
+.home-side-panel {
+    background-color: white;
+    grid-column: side-panel-start / side-panel-end;
+}
+
+.home-main-interface {
+    background-color:white;
+    grid-column: side-panel-end / main-interface-end;
+    margin: 40px;
     display: flex;
+    height: 65%;
     flex-direction: column;
     align-items: center;
+}
+
+.home-btn-add-eval {
+    padding-bottom: 30px;
 }

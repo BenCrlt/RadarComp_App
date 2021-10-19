@@ -1,4 +1,5 @@
 import { EvalType } from "../../types/common/main";
+import {Nav, Navbar} from 'react-bootstrap'
 
 interface PropsType {
     listEvals: EvalType[]
@@ -6,14 +7,7 @@ interface PropsType {
 
 function ListEvaluations({listEvals} : PropsType) {
     return (
-        <div>
-            <h1>Evaluations</h1>
-            <div>
-                <ul>
-
-                </ul>
-            </div>
-        </div>
+        <div></div>
     )
 }
 

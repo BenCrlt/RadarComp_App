@@ -20,7 +20,7 @@ function App() {
       <div className="rca-container">
         <Router>
           <Banner/>
-            <div className="container">
+            <div className="app-container">
               <Switch>
                 <Route path="/eval">
                   <Evaluation />

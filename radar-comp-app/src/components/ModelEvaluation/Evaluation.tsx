@@ -24,20 +24,22 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function Evaluation({user, listNotes, clearListNotes} : PropsFromRedux) {
     useEffect(() => {
-        clearListNotes();
+        clearListNotes();   
     }, [clearListNotes]);
     const {data} = useQuery<{listSkills : SkillType[]}>( GQL_EVALUATION);
     const rangeScale = 5;
     const date = new Date().toLocaleDateString();
     return (
         <div className="rca-eval">
-            <h1 className="border-bottom">Evaluation {date}</h1>
-                <div className="rca-eval-skill-list">
+                <div className="rca-eval-skill-list-container">
+                    <h1 className="border-bottom">Evaluation {date}</h1>
                     {data?.listSkills.map((skill) => (
                         <Skill skill={skill} key={skill.skill_id} rangeScale={rangeScale}/>
                     ))}
                 </div>
-                <CreateEvaluation/>
+                <div className="rca-eval-create-eval-container">
+                    <CreateEvaluation/>
+                </div>
         </div>
     )
 }

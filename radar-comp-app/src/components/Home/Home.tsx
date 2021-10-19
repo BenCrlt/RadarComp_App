@@ -7,7 +7,7 @@ import ListEvaluations from './ListEvaluations';
 import { useEffect } from 'react';
 import {useHistory} from 'react-router-dom'
 import {gql, useQuery } from '@apollo/client'
-import {Container, Col, Row, Spinner, Button} from 'react-bootstrap'
+import {Spinner, Button} from 'react-bootstrap'
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -60,6 +60,10 @@ function Home({user, setUser, isUserConnected} : PropsFromRedux) {
         }
     }, [isUserConnected, history, refetch])
 
+    function newEvaluation() {
+        history.push('/eval')
+    }
+
     const listEvals : EvalType[] = user_data ? user_data.user.user_list_evals : [];
     
     const listSkills : SkillType[] = skills_data ? skills_data.listSkills : [];
@@ -71,7 +75,7 @@ function Home({user, setUser, isUserConnected} : PropsFromRedux) {
             <div className='home-main-interface'>
                 {!loading ? <RadarChart listSkills ={listSkills} listEvals={listEvals}/> : <Spinner animation="border" />}
                 <div className='home-btn-add-eval'>
-                    <Button variant="dark" size="lg">
+                    <Button variant="dark" size="lg" onClick={() => newEvaluation()}>
                         Nouvelle évaluation
                     </Button>
                 </div>

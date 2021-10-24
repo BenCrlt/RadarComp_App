@@ -1,4 +1,4 @@
-import '../../styles/Home.css'
+import '../../styles/Home/Home.css'
 import { connect, ConnectedProps } from 'react-redux'
 import { StateType, UserType, SkillType, EvalType} from '../../types/common/main';
 import { setUser } from '../../store/common/actions'

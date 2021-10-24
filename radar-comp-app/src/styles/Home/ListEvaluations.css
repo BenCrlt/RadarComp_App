@@ -1,0 +1,11 @@
+.list-evaluations-main-container {
+    display: flex;
+    flex-direction: column;  
+}
+
+.list-evaluations-title-container {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-size: 1.1em;
+}
